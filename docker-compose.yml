@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  php:
+    build: infra/docker/php
+    container_name: php
+    hostname: php_test
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/var/www/html
+
+    working_dir: /var/www/html
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: example
+      MYSQL_DATABASE: mydatabase
+      XDEBUG_CONFIG: "remote_host=host.docker.internal"
+    entrypoint: php -S 0.0.0.0:8080
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mydatabase
