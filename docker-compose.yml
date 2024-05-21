@@ -10,4 +10,4 @@ services:
     working_dir: /var/www/html
     environment:
       XDEBUG_CONFIG: "remote_host=host.docker.internal"
-    entrypoint: php -S 0.0.0.0:8080
+    entrypoint: /usr/bin/entrypoint.sh
